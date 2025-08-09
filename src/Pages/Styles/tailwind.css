@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --color-primary: #00FF41; /* terminal-green-400 */
+    --color-primary-foreground: #0A0E1A; /* terminal-black */
+    
+    /* Secondary Colors */
+    --color-secondary: #111929; /* deep-space-navy */
+    --color-secondary-foreground: #E0E6ED; /* text-primary */
+    
+    /* Accent Colors */
+    --color-accent: #00FFFF; /* cyan-400 */
+    --color-accent-foreground: #0A0E1A; /* terminal-black */
+    
+    /* Background Colors */
+    --color-background: #0A0E1A; /* terminal-black */
+    --color-foreground: #E0E6ED; /* text-primary */
+    
+    /* Surface Colors */
+    --color-card: #1A1F2E; /* surface-dark */
+    --color-card-foreground: #E0E6ED; /* text-primary */
+    --color-popover: #1A1F2E; /* surface-dark */
+    --color-popover-foreground: #E0E6ED; /* text-primary */
+    
+    /* Muted Colors */
+    --color-muted: #8B949E; /* text-secondary */
+    --color-muted-foreground: #E0E6ED; /* text-primary */
+    
+    /* Border and Input */
+    --color-border: #333333; /* border-gray */
+    --color-input: #1A1F2E; /* surface-dark */
+    --color-ring: #00FF41; /* terminal-green-400 */
+    
+    /* Status Colors */
+    --color-success: #28A745; /* success-green */
+    --color-success-foreground: #FFFFFF; /* white */
+    --color-warning: #FFB000; /* amber-warning */
+    --color-warning-foreground: #0A0E1A; /* terminal-black */
+    --color-error: #DC3545; /* error-red */
+    --color-error-foreground: #FFFFFF; /* white */
+    --color-destructive: #DC3545; /* error-red */
+    --color-destructive-foreground: #FFFFFF; /* white */
+    
+    /* Terminal Specific Colors */
+    --color-terminal-green: #00FF41; /* terminal-green-400 */
+    --color-terminal-cyan: #00FFFF; /* cyan-400 */
+    --color-terminal-amber: #FFB000; /* amber-warning */
+    --color-deep-space: #111929; /* deep-space-navy */
+    --color-github-dark: #0D1117; /* github-dark */
+    --color-text-primary: #E0E6ED; /* text-primary */
+    --color-text-secondary: #8B949E; /* text-secondary */
+    --color-github-green: #238636; /* github-green */
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+  
+  /* Terminal Typography */
+  .font-terminal {
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+  }
+  
+  .font-code {
+    font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  }
+  
+  .font-command {
+    font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  }
+  
+  .font-system {
+    font-family: 'Source Code Pro', 'JetBrains Mono', monospace;
+  }
+  
+  /* Terminal Cursor Animation */
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  .cursor-blink {
+    animation: blink 1s infinite;
+  }
+  
+  /* Terminal Glow Effects */
+  .terminal-glow {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  }
+  
+  .terminal-glow-cyan {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  /* Scan Line Effect */
+  .scan-lines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      transparent 50%, 
+      rgba(0, 255, 65, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+  
+  /* Terminal Window Shadows */
+  .terminal-window {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .terminal-modal {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-card);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+}
+
+@layer components {
+  /* Terminal Command Styles */
+  .terminal-prompt {
+    @apply font-terminal text-primary;
+  }
+  
+  .terminal-output {
+    @apply font-code text-foreground;
+  }
+  
+  .terminal-error {
+    @apply font-code text-error;
+  }
+  
+  .terminal-success {
+    @apply font-code text-success;
+  }
+  
+  .terminal-warning {
+    @apply font-code text-warning;
+  }
+  
+  /* Interactive Elements */
+  .terminal-button {
+    @apply font-command bg-card border border-border text-foreground px-4 py-2 rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-200;
+  }
+  
+  .terminal-input {
+    @apply font-terminal bg-input border border-border text-foreground px-3 py-2 rounded-sm focus:ring-2 focus:ring-ring focus:border-transparent;
+  }
+  
+  /* Brand Elements */
+  .brand-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  }
+  
+  .brand-text-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  /* Terminal Spacing */
+  .terminal-spacing {
+    @apply space-y-4;
+  }
+  
+  /* Animation Utilities */
+  .typing-animation {
+    animation: typing 2s steps(20, end), blink 1s infinite;
+  }
+  
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  /* Focus Utilities */
+  .focus-terminal {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50;
+  }
+  
+  /* Hover Effects */
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+  }
+}
