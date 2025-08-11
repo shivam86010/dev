@@ -1,11 +1,9 @@
-
 import React, { useState,} from 'react';
-
 import Header from '../../Components/Ui/Header';
 import Icon from '../../Components/AppIcon';
-
+import ASCIIArt from './ASCIIArt';
 const TerminalHomepage = () => {
-
+   const [showASCII, setShowASCII] = useState(true);
 //   const [isLoading, setIsLoading] = useState(true);
 
 //   if (isLoading) {
@@ -27,6 +25,27 @@ const TerminalHomepage = () => {
       <main className="pt-20 pb-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+             {/* Main Terminal Section */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* ASCII Art Welcome */}
+              {showASCII && (
+                <div className="bg-card border border-border rounded-terminal p-6 terminal-window">
+                  <ASCIIArt isVisible={showASCII} />
+                </div>
+              )}
+
+              {/* Terminal Window */}
+              {/* <TerminalWindow
+                onCommandExecute={executeCommand}
+                currentDirectory={currentDirectory}
+                commandHistory={commandHistory}
+              /> */}
+
+              {/* Quick Actions - Mobile */}
+              {/* <div className="lg:hidden">
+                <QuickActions onCommandExecute={executeCommand} />
+              </div> */}
+            </div>
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Terminal Tips */}
