@@ -29,7 +29,7 @@ const ASCIIArt = ({ isVisible = true }) => {
 
   const welcomeText = [
     "",
-    "Welcome to Shivam\'s Digital Workspace...",
+    "Welcome to Shivam \'s Digital Workspace...",
     "",
     "System initialized successfully ✓",
     "Loading portfolio modules ✓",
