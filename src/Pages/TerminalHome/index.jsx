@@ -4,6 +4,7 @@ import Icon from '../../Components/AppIcon';
 import ASCIIArt from './ASCIIArt';
 import CommandHelper from './CommandHelper'
 import QuickActions from './QuickActions'
+import SystemInfo from './SystemInfo'
 const TerminalHomepage = () => {
   const [showASCII, setShowASCII] = useState(true);
   const [showHelp, setShowHelp] = useState(false);
@@ -208,6 +209,9 @@ Redirecting to contact interface...`);
             </div>
             {/* Sidebar */}
             <div className="space-y-6">
+
+               {/* System Info */}
+              <SystemInfo />
               {/* Terminal Tips */}
               <div className="bg-card border border-border rounded-terminal p-4">
                 <h3 className="font-terminal text-primary text-sm mb-3 flex items-center space-x-2">
