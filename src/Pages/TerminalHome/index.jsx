@@ -1,15 +1,127 @@
-import React, { useState,} from 'react';
+import React, { useState, useEffect} from 'react';
 import Header from '../../Components/Ui/Header';
 import Icon from '../../Components/AppIcon';
 import ASCIIArt from './ASCIIArt';
 import CommandHelper from './CommandHelper'
 import QuickActions from './QuickActions'
 import SystemInfo from './SystemInfo'
+import TerminalWindow from './TerminalWindow'
 const TerminalHomepage = () => {
   const [showASCII, setShowASCII] = useState(true);
   const [showHelp, setShowHelp] = useState(false);
   const [commandHistory, setCommandHistory] = useState([]);
-//   const [isLoading, setIsLoading] = useState(true);
+    const [currentDirectory, setCurrentDirectory] = useState('~');
+  const [isLoading, setIsLoading] = useState(true);
+
+    // Mock file system structure
+  const fileSystem = {
+    '~': {
+      type: 'directory',
+      contents: ['projects', 'skills.json', 'resume.txt', 'experience.md', 'contact.txt']
+    },
+    'projects': {
+      type: 'directory',
+      contents: ['web-apps', 'mobile-apps', 'ai-projects', 'blockchain']
+    },
+    'skills.json': {
+      type: 'file',
+      content: `{
+  "languages": ["JavaScript", "Python", "TypeScript", "Java"],
+  "frameworks": ["React", "Node.js", "Express", "Django"],
+  "databases": ["MongoDB", "PostgreSQL", "Redis"],
+  "tools": ["Git", "Docker", "AWS", "Kubernetes"],
+  "specialties": ["Full Stack Development", "AI/ML", "Web3"]
+}`
+    },
+    'resume.txt': {
+      type: 'file',
+      content: `SHIVAM - Full Stack Developer
+================================
+
+📧 Email: shivam.dev@portfolio.com
+🌐 Portfolio: https://shivam.dev
+📱 Phone: +1 (555) 123-4567
+
+SUMMARY
+-------
+Passionate full-stack developer with 5+ years of experience building
+scalable web applications. Expertise in React, Node.js, and modern
+web technologies. Strong focus on user experience and performance.
+
+EXPERIENCE
+----------
+• Senior Developer at TechCorp (2022-Present)
+• Full Stack Developer at StartupXYZ (2020-2022)
+• Junior Developer at WebSolutions (2019-2020)
+
+EDUCATION
+---------
+• B.S. Computer Science - Tech University (2019)
+• AWS Certified Solutions Architect
+• Google Cloud Professional Developer
+
+Type 'cat experience.md' for detailed work history.
+Type 'projects --list' to see project portfolio.`
+    },
+    'experience.md': {
+      type: 'file',
+      content: `# Work Experience
+
+## Senior Full Stack Developer | TechCorp
+**2022 - Present**
+- Led development of microservices architecture serving 1M+ users
+- Implemented CI/CD pipelines reducing deployment time by 60%
+- Mentored junior developers and conducted code reviews
+
+## Full Stack Developer | StartupXYZ  
+**2020 - 2022**
+- Built responsive web applications using React and Node.js
+- Designed and implemented RESTful APIs
+- Collaborated with design team on UX improvements
+
+## Junior Developer | WebSolutions
+**2019 - 2020**
+- Developed client websites using modern web technologies
+- Participated in agile development processes
+- Gained experience in database design and optimization`
+    },
+    'contact.txt': {
+      type: 'file',
+      content: `Contact Information
+==================
+
+📧 Email: shivam.dev@portfolio.com
+📱 Phone: +1 (555) 123-4567
+🌐 Website: https://shivam.dev
+💼 LinkedIn: linkedin.com/in/shivam-dev
+🐙 GitHub: github.com/shivam-dev
+
+Available for:
+- Full-time opportunities
+- Freelance projects
+- Technical consulting
+- Speaking engagements
+
+Response time: Usually within 24 hours
+Time zone: EST (UTC-5)
+
+Use 'sudo hire-me' command for direct contact form.`
+    }
+  };
+
+  useEffect(() => {
+    // Simulate initial loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      addToHistory('', 'System initialized. Welcome to Shivam\'s Terminal Portfolio!\nType \'help\' to get started.');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const addToHistory = (command, output) => {
+    setCommandHistory(prev => [...prev, { command, output, timestamp: new Date() }]);
+  };
 
  const executeCommand = (command) => {
     const args = command.toLowerCase().split(' ');
@@ -167,17 +279,17 @@ Redirecting to contact interface...`);
     }
   };
 
-//   if (isLoading) {
-//     return (
-//       <div className="min-h-screen bg-background flex items-center justify-center">
-//         <div className="text-center">
-//           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-//           <div className="font-terminal text-primary">Initializing Terminal...</div>
-//           <div className="font-code text-muted text-sm mt-2">Loading portfolio modules</div>
-//         </div>
-//       </div>
-//     );
-//   }
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="font-terminal text-primary">Initializing Terminal...</div>
+          <div className="font-code text-muted text-sm mt-2">Loading portfolio modules</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -196,11 +308,11 @@ Redirecting to contact interface...`);
               )}
 
               {/* Terminal Window */}
-              {/* <TerminalWindow
+              <TerminalWindow
                 onCommandExecute={executeCommand}
                 currentDirectory={currentDirectory}
                 commandHistory={commandHistory}
-              /> */}
+              />
 
               {/* Quick Actions - Mobile */}
               <div className="lg:hidden">
@@ -212,6 +324,12 @@ Redirecting to contact interface...`);
 
                {/* System Info */}
               <SystemInfo />
+
+               {/* Quick Actions - Desktop */}
+              <div className="hidden lg:block">
+                <QuickActions onCommandExecute={executeCommand} />
+              </div>
+              
               {/* Terminal Tips */}
               <div className="bg-card border border-border rounded-terminal p-4">
                 <h3 className="font-terminal text-primary text-sm mb-3 flex items-center space-x-2">
