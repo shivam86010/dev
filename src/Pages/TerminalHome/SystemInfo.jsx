@@ -3,6 +3,7 @@ import Icon from '../../Components/AppIcon';
 
 const SystemInfo = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [systemStats, setSystemStats] = useState({
     cpu: 12,
     memory: 2.1,
@@ -45,6 +46,17 @@ const SystemInfo = () => {
       day: 'numeric'
     });
   };
+  
+  
+  useEffect(() => {
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
+  }, []);
 
   return (
     <div className="bg-card border border-border rounded-terminal p-4 space-y-4">
@@ -54,9 +66,15 @@ const SystemInfo = () => {
           <Icon name="Monitor" size={16} />
           <span>System Information</span>
         </h3>
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
           <span className="font-code text-xs text-success">ONLINE</span>
+        </div> */}
+        <div className="flex items-center space-x-2">
+          <div className={`w-2 h-2 rounded-full ${isOnline ? 'bg-success' : 'bg-destructive'} animate-pulse`}></div>
+          <span className={`font-code text-xs ${isOnline ? 'text-success' : 'text-destructive'}`}>
+            {isOnline ? 'ONLINE' : 'OFFLINE'}
+          </span>
         </div>
       </div>
 
