@@ -35,12 +35,12 @@ const TerminalHomepage = () => {
     },
     'resume.txt': {
       type: 'file',
-      content: `SHIVAM - Full Stack Developer
+      content: `SHIVAM SINGH- Frontend Developer
 ================================
 
-📧 Email: shivam.dev@portfolio.com
+📧 Email: shivamsingh8601018@gmail.com
 🌐 Portfolio: https://shivam.dev
-📱 Phone: +1 (555) 123-4567
+📱 Phone: +(91) 8382044417
 
 SUMMARY
 -------
