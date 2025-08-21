@@ -131,6 +131,7 @@ export default {
         typing: "typing 2s steps(20, end), blink 1s infinite",
         "terminal-fade-in": "fadeIn 0.3s ease-out",
         "terminal-slide-up": "slideUp 0.3s ease-out",
+        bounceDock: "bounceDock 1.2s ease",
       },
 
       keyframes: {
@@ -149,6 +150,12 @@ export default {
         slideUp: {
           from: { transform: "translateY(10px)", opacity: "0" },
           to: { transform: "translateY(0)", opacity: "1" },
+        },
+        bounceDock: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "30%": { transform: "translateY(-15%)" },
+          "60%": { transform: "translateY(0)" },
+          "80%": { transform: "translateY(-8%)" },
         },
       },
 

@@ -19,8 +19,8 @@ const Header = () => {
   const navigationItems = [
     { path: '/terminalhomepage', label: 'Home', command: 'cd ~', icon: 'Home' },
     { path: '/interactivestorymode', label: 'Story', command: './story.sh', icon: 'BookOpen' },
-    { path: '/projects-lab-showcase', label: 'Projects', command: 'ls projects/', icon: 'Code2' },
-    { path: '/ai-assistant-chat-interface', label: 'AI Chat', command: 'chat --ai', icon: 'MessageSquare' }
+    // { path: '/projects-lab-showcase', label: 'Projects', command: 'ls projects/', icon: 'Code2' },
+    // { path: '/ai-assistant-chat-interface', label: 'AI Chat', command: 'chat --ai', icon: 'MessageSquare' }
   ];
 
   const moreMenuItems = [
