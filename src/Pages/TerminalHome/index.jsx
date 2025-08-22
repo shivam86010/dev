@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import Header from '../../Components/Ui/Header';
 import Icon from '../../Components/AppIcon';
 import ASCIIArt from './ASCIIArt';
@@ -12,6 +12,7 @@ const TerminalHomepage = () => {
   const [commandHistory, setCommandHistory] = useState([]);
     const [currentDirectory, setCurrentDirectory] = useState('~');
   const [isLoading, setIsLoading] = useState(true);
+  const terminalContainerRef = useRef(null);
 
     // Mock file system structure
   const fileSystem = {
@@ -296,7 +297,7 @@ Redirecting to contact interface...`);
       <Header />
       
       <main className="pt-20 pb-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto" ref={terminalContainerRef}>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
              {/* Main Terminal Section */}
             <div className="lg:col-span-2 space-y-6">
