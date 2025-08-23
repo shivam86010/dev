@@ -21,7 +21,7 @@ const ASCIIArt = ({ isVisible = true }) => {
     "                    ╚═════╝ ╚══════╝  ╚═══╝  ",
     "",
     "╔══════════════════════════════════════════════════════════════════╗",
-    "║          Frontend Developer Portfolio                            ║", 
+    "║          Software Developer Portfolio                            ║", 
     "║              React • Redux • Rechart • Tailwind CSS              ║", 
     "╚══════════════════════════════════════════════════════════════════╝"
 

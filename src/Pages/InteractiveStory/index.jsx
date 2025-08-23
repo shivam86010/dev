@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/ui/Header';
+import { motion, AnimatePresence } from 'framer-motion';
+import Header from '../../Components/Ui/Header';
+import StoryNavigation from './StoryNavigation' 
 import StoryIntro from '../../Pages/InteractiveStory/StoryIntro'
 import StoryPanel from '../../Pages/InteractiveStory/StoryPanel'
 import Button from '../../Components/Ui/Button'
 const InteractiveStoryMode = () => {
   const [showIntro, setShowIntro] = useState(true);
-  
+  const [currentPanel, setCurrentPanel] = useState(0);
+  const [selectedTech, setSelectedTech] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isTechModalOpen, setIsTechModalOpen] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [isTextToSpeechEnabled, setIsTextToSpeechEnabled] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const storyPanels = [
     {
       id:1,
@@ -27,6 +36,24 @@ const InteractiveStoryMode = () => {
 
   const handleSkipIntro = () => {
     setShowIntro(false);
+  };
+   
+  const handleNavigatePanel = (panelIndex) => {
+    setCurrentPanel(panelIndex);
+  };
+  
+  const handleToggleAutoPlay = (enabled) => {
+    setIsAutoPlaying(enabled);
+  };
+
+  const handleTechClick = (tech) => {
+    setSelectedTech(tech);
+    setIsTechModalOpen(true);
+  };
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsProjectModalOpen(true);
   };
 
   if (showIntro) {
@@ -67,6 +94,16 @@ const InteractiveStoryMode = () => {
           />
         </AnimatePresence>
       </main>
+
+      {/* Navigation */}
+      <StoryNavigation
+        currentPanel={currentPanel}
+        totalPanels={storyPanels.length}
+        onNavigate={handleNavigatePanel}
+        onToggleAutoPlay={handleToggleAutoPlay}
+        isAutoPlaying={isAutoPlaying}
+        autoPlaySpeed={5000}
+      />
       
     </div>
   );
