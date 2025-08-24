@@ -5,7 +5,10 @@ import StoryNavigation from './StoryNavigation'
 import StoryIntro from '../../Pages/InteractiveStory/StoryIntro'
 import StoryPanel from '../../Pages/InteractiveStory/StoryPanel'
 import Button from '../../Components/Ui/Button'
+import { useNavigate } from 'react-router-dom';
+
 const InteractiveStoryMode = () => {
+  const navigate = useNavigate(); 
   const [showIntro, setShowIntro] = useState(true);
   const [currentPanel, setCurrentPanel] = useState(0);
   const [selectedTech, setSelectedTech] = useState(null);
@@ -25,6 +28,12 @@ const InteractiveStoryMode = () => {
 
     }
   ]
+
+  // Load language preference
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('portfolio-language') || 'en';
+    setCurrentLanguage(savedLanguage);
+  }, []);
 
   const toggleTextToSpeech = () => {
     
@@ -54,6 +63,10 @@ const InteractiveStoryMode = () => {
   const handleProjectClick = (project) => {
     setSelectedProject(project);
     setIsProjectModalOpen(true);
+  };
+
+  const handleNavigateToProjects = () => {
+    navigate('/projects-lab-showcase');
   };
 
   if (showIntro) {
