@@ -8,17 +8,18 @@ import Button from '../../Components/Ui/Button'
 import { useNavigate } from 'react-router-dom';
 
 const InteractiveStoryMode = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
   const [currentPanel, setCurrentPanel] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [selectedTech, setSelectedTech] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isTechModalOpen, setIsTechModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTextToSpeechEnabled, setIsTextToSpeechEnabled] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
-  // my story data 
+
+  // Mock story data
   const storyPanels = [
     {
       id: 1,
@@ -545,35 +546,13 @@ const InteractiveStoryMode = () => {
       }
     }
   ];
+  
 
   // Load language preference
   useEffect(() => {
     const savedLanguage = localStorage.getItem('portfolio-language') || 'en';
     setCurrentLanguage(savedLanguage);
   }, []);
-
-  const toggleTextToSpeech = () => {
-    setIsTextToSpeechEnabled(!isTextToSpeechEnabled);
-
-    if(!isTextToSpeechEnabled){
-      //start text-to-speech for current panel
-      const currentPanelData = storyPanels[currentPanel];
-      const textToSpeak = `${currentPanelData.title}. ${currentPanelData.subtitle}. ${currentPanelData.description}`;
-
-      if('speechSynthesis' in window){
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.rate=0.8;
-        utterance.pitch=1;
-        speechSynthesis.speak(utterance);
-      }
-
-    }else{
-      //stop text-to-speech 
-      if('speechSynthesis' in window){
-        speechSynthesis.cancel();
-      }
-    }
-  };
 
   const handleStartStory = () => {
     setShowIntro(false);
@@ -582,11 +561,11 @@ const InteractiveStoryMode = () => {
   const handleSkipIntro = () => {
     setShowIntro(false);
   };
-   
+
   const handleNavigatePanel = (panelIndex) => {
     setCurrentPanel(panelIndex);
   };
-  
+
   const handleToggleAutoPlay = (enabled) => {
     setIsAutoPlaying(enabled);
   };
@@ -601,9 +580,120 @@ const InteractiveStoryMode = () => {
     setIsProjectModalOpen(true);
   };
 
+  const handleCloseTechModal = () => {
+    setIsTechModalOpen(false);
+    setSelectedTech(null);
+  };
+
+  const handleCloseProjectModal = () => {
+    setIsProjectModalOpen(false);
+    setSelectedProject(null);
+  };
+
   const handleNavigateToProjects = () => {
     navigate('/projects-lab-showcase');
   };
+
+  const toggleTextToSpeech = () => {
+    setIsTextToSpeechEnabled(!isTextToSpeechEnabled);
+    
+    if (!isTextToSpeechEnabled) {
+      // Start text-to-speech for current panel
+      const currentPanelData = storyPanels[currentPanel];
+      const textToSpeak = `${currentPanelData.title}. ${currentPanelData.subtitle}. ${currentPanelData.description}`;
+      
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        speechSynthesis.speak(utterance);
+      }
+    } else {
+      // Stop text-to-speech
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+      }
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (showIntro) return;
+      
+      switch (e.key) {
+        case 'ArrowLeft':
+          if (currentPanel > 0) {
+            setCurrentPanel(currentPanel - 1);
+          }
+          break;
+        case 'ArrowRight':
+          if (currentPanel < storyPanels.length - 1) {
+            setCurrentPanel(currentPanel + 1);
+          }
+          break;
+        case ' ':
+          e.preventDefault();
+          setIsAutoPlaying(!isAutoPlaying);
+          break;
+        case 'Escape':
+          if (isTechModalOpen) {
+            handleCloseTechModal();
+          } else if (isProjectModalOpen) {
+            handleCloseProjectModal();
+          }
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [showIntro, currentPanel, isAutoPlaying, isTechModalOpen, isProjectModalOpen]);
+
+  // Touch/swipe support for mobile
+  useEffect(() => {
+    let startX = 0;
+    let startY = 0;
+
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (!startX || !startY) return;
+
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      
+      const diffX = startX - endX;
+      const diffY = startY - endY;
+
+      // Only handle horizontal swipes
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0 && currentPanel < storyPanels.length - 1) {
+          // Swipe left - next panel
+          setCurrentPanel(currentPanel + 1);
+        } else if (diffX < 0 && currentPanel > 0) {
+          // Swipe right - previous panel
+          setCurrentPanel(currentPanel - 1);
+        }
+      }
+
+      startX = 0;
+      startY = 0;
+    };
+
+    if (!showIntro) {
+      document.addEventListener('touchstart', handleTouchStart);
+      document.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [showIntro, currentPanel]);
 
   if (showIntro) {
     return (
@@ -613,6 +703,7 @@ const InteractiveStoryMode = () => {
       />
     );
   }
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
