@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import Button from '../../../Components/Ui/Button';
 
 
 const TechModal = ({ tech, isOpen, onClose }) => {
