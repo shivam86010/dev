@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../../Components/Ui/Header';
-import StoryNavigation from './StoryNavigation' 
-import StoryIntro from '../../Pages/InteractiveStory/StoryIntro'
-import StoryPanel from '../../Pages/InteractiveStory/StoryPanel'
+import StoryNavigation from './Component/StoryNavigation' 
+import StoryIntro from './Component/StoryIntro'
+import StoryPanel from './Component/StoryPanel'
 import Button from '../../Components/Ui/Button'
 import { useNavigate } from 'react-router-dom';
 

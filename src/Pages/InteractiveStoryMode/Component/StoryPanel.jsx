@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import Icon from '../../Components/AppIcon';
-import Image from '../../Components/AppImage';
-import Button from '../../Components/Ui/Button';
+import Icon from '../../../Components/AppIcon';
+import Image from '../../../Components/AppImage';
+import Button from '../../../Components/Ui/Button';
 
 const StoryPanel = ({ 
   panel, 

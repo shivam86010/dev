@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Icon from '../../../components/AppIcon';
+import Icon from '../../../Components/AppIcon';
 import Button from '../../../Components/Ui/Button';
 
 

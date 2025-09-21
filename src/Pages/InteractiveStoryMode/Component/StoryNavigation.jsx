@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import Button from '../../Components/Ui/Button';
+import Button from '../../../Components/Ui/Button';
 
 const StoryNavigation = ({ 
   currentPanel, 
