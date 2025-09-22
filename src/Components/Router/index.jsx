@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route , Routes } from 'react-router-dom'
 import TerminalHomePage from '../../Pages/TerminalHome/index'
-import InteractiveStoryMode from '../../Pages/InteractiveStory/index'
+import InteractiveStoryMode from '../../Pages/InteractiveStoryMode/index'
 function index() {
   return (
       <Routes>
