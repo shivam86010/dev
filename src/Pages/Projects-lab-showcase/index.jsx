@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Header from '../../components/ui/Header';
-import Icon from '../../components/AppIcon';
-import Button from '../../components/ui/Button';
-import ProjectCard from './components/ProjectCard';
-import ProjectDetails from './components/ProjectDetails';
-import TerminalInterface from './components/TerminalInterface';
-import TechBadgeCollection from './components/TechBadgeCollection';
-import ProjectFilters from './components/ProjectFilters';
+import Header from '../../Components/Ui/Header';
+import Icon from '../../Components/AppIcon';
+import Button from '../../Components/Ui/Button';
+import ProjectCard from './Component/ProjectCard';
+import ProjectDetails from './Component/ProjectDetails';
+import TerminalInterface from './Component/TerminalInterface';
+import TechBadgeCollection from './Component/TechBadgeCollection';
+import ProjectFilters from './Component/ProjectFilter';
 
 const ProjectsLabShowcase = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'terminal'
