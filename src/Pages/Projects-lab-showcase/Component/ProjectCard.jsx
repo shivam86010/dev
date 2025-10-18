@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import Icon from '../../../components/AppIcon';
+import Icon from '../../../Components/AppIcon';
 import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
+import Button from '../../../Components/Ui/Button';
 
 const ProjectCard = ({ project, onSelect, isSelected, viewMode }) => {
   const [isHovered, setIsHovered] = useState(false);

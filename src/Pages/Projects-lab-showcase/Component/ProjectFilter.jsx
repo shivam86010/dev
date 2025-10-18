@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import Icon from '../../../Components/AppIcon';
+import Button from '../../../Components/Ui/Button';
 import Input from '../../../components/ui/Input';
 
 const ProjectFilters = ({ projects, onFilterChange, activeFilters }) => {
