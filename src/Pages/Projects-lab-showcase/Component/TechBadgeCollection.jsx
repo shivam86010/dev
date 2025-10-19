@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import Icon from '../../../Components/AppIcon';
+import Button from '../../../Components/Ui/Button';
 
 const TechBadgeCollection = ({ projects, onBadgeCollected }) => {
   const [collectedBadges, setCollectedBadges] = useState(new Set());

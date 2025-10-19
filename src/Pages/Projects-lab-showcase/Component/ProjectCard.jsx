@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Icon from '../../../Components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../Components/Ui/Button';

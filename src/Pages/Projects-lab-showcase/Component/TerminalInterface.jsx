@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-import Button from '../../../components/ui/Button';
+import Button from '../../../Components/Ui/Button';
 
 const TerminalInterface = ({ projects, onProjectSelect, onViewModeChange }) => {
   const [input, setInput] = useState('');
