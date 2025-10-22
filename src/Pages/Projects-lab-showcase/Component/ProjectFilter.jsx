@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../../../Components/AppIcon';
 import Button from '../../../Components/Ui/Button';
-// import Input from '../../../components/ui/Input';
+import Input from '../../../components/ui/Input';
 
 const ProjectFilters = ({ projects, onFilterChange, activeFilters }) => {
   const [showFilters, setShowFilters] = useState(false);
